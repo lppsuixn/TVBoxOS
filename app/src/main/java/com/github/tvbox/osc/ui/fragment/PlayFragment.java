@@ -400,6 +400,10 @@ public class PlayFragment extends BaseLazyFragment {
     }
 
     public void initLiveDanmu(){
+        if(danmakuView != null){
+            danmakuView.release();
+            danmakuView = null;
+        }
         danmakuParser = new BaseDanmakuParser() {
             @Override
             protected IDanmakus parse() {
@@ -941,7 +945,7 @@ public class PlayFragment extends BaseLazyFragment {
                                 JsonObject danmuBaseInfo = new Gson().fromJson(response, JsonObject.class);
                                 JsonObject segmentIndex = danmuBaseInfo.getAsJsonObject("segment_index");
                                 for (String key : segmentIndex.keySet()) {
-                                    String danmuUrl = "https://dm.video.qq.com/barrage/segment/" + qqVid + "/" + segmentIndex.getAsJsonObject(key).get("segment_name").getAsString();
+                                        String danmuUrl = "https://dm.video.qq.com/barrage/segment/" + qqVid + "/" + segmentIndex.getAsJsonObject(key).get("segment_name").getAsString();
                                     UrlHttpUtil.syncGet(danmuUrl, new CallBackUtil.CallBackString() {
                                         @Override
                                         public void onFailure(int code, String errorMessage) {
