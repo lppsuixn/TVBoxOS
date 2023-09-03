@@ -87,6 +87,8 @@ public class HomeHotVodAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHol
                     return MD5.string2MD5(item.pic + "position=" + helper.getLayoutPosition());
                 }
             };
+            item.pic=item.pic.trim();
+
             if (item.sourceKey != null && item.sourceKey.contains("py_bili")) {
                 Picasso.get()
                         .load(DefaultConfig.checkReplaceProxy(item.pic))
@@ -97,25 +99,16 @@ public class HomeHotVodAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHol
             }else {
                 Picasso.get()
                         .load(DefaultConfig.checkReplaceProxy(item.pic))
-                        .transform(new RoundTransformation(MD5.string2MD5(item.pic + "position=" + helper.getLayoutPosition()))
+                        .transform(new RoundTransformation(MD5.string2MD5(item.pic))
                                 .centerCorp(true)
                                 .override(AutoSizeUtils.mm2px(mContext, 300), AutoSizeUtils.mm2px(mContext, 400))
                                 .roundRadius(AutoSizeUtils.mm2px(mContext, 10), RoundTransformation.RoundType.ALL))
                         .placeholder(R.drawable.img_loading_placeholder)
+                        .noFade()
                         .error(R.drawable.img_loading_placeholder)
                         .into(ivThumb);
             }
-            item.pic=item.pic.trim();
-            Picasso.get()
-                    .load(DefaultConfig.checkReplaceProxy(item.pic))
-                    .transform(new RoundTransformation(MD5.string2MD5(item.pic))
-                            .centerCorp(true)
-                            .override(AutoSizeUtils.mm2px(mContext, 300), AutoSizeUtils.mm2px(mContext, 400))
-                            .roundRadius(AutoSizeUtils.mm2px(mContext, 10), RoundTransformation.RoundType.ALL))
-                    .placeholder(R.drawable.img_loading_placeholder)
-                    .noFade()
-                    .error(R.drawable.img_loading_placeholder)
-                    .into(ivThumb);
+
         } else {
             ivThumb.setImageResource(R.drawable.img_loading_placeholder);
         }
