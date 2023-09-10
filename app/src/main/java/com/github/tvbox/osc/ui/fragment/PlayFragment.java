@@ -383,7 +383,8 @@ public class PlayFragment extends BaseLazyFragment {
             @Override
             public void updateTimer(DanmakuTimer timer) {
                 if (Math.abs(mVideoView.getSpeed()) - 1.0 > 1e-6) {
-                    timer.add((long) (timer.lastInterval() * (mVideoView.getSpeed() - 1)));
+                    timer.update(mVideoView.getCurrentPosition());
+//                    timer.add((long) (timer.lastInterval() * (mVideoView.getSpeed() - 1)));
                 }
             }
 
@@ -421,8 +422,12 @@ public class PlayFragment extends BaseLazyFragment {
 
             @Override
             public void updateTimer(DanmakuTimer timer) {
+//                if(Math.abs(mVideoView.getCurrentPosition() - danmakuView.getCurrentTime())>3 * 1000){
+//                    danmakuView.seekTo(mVideoView.getCurrentPosition());
+//                }
                 if (Math.abs(mVideoView.getSpeed()) - 1.0 > 1e-6) {
-                    timer.add((long) (timer.lastInterval() * (mVideoView.getSpeed() - 1)));
+                    timer.update(mVideoView.getCurrentPosition());
+//                    timer.add((long) (timer.lastInterval() * (mVideoView.getSpeed() - 1)));
                 }
             }
 
